@@ -104,6 +104,19 @@ python run.py
 
 Open <http://127.0.0.1:5000>. The app creates its SQLite database and seeds five educational challenges at startup. It binds to loopback by default. AI analysis is unavailable until a server-side API key is configured; code stays in the editor when an API call fails.
 
+## Deploy to Vercel
+
+The repository declares `run:app` as the Flask entrypoint in `pyproject.toml` and routes all requests through it in `vercel.json`.
+
+In the Vercel project settings, set at least:
+
+- `SECRET_KEY` to a strong, persistent random value
+- `SESSION_COOKIE_SECURE=1`
+- `DATABASE_URL` to a persistent database URL
+- `AI_PROVIDER` and the matching provider key if AI analysis is enabled
+
+SQLite data is local to the process and is not durable on Vercel serverless deployments. Use a persistent external database for deployed account and progress data.
+
 For HTTPS deployment, set `SESSION_COOKIE_SECURE=1` and configure a strong persistent `SECRET_KEY`. The default `memory://` rate-limit store is for a single local process; use a shared storage backend when deploying multiple workers. Do not expose the built-in development server directly to the internet.
 
 ## Create an account and sign in
