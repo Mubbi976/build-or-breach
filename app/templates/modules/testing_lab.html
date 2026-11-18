@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Security Testing Lab{% endblock %}
+{% block breadcrumb %}Security Testing Lab{% endblock %}
+{% block content %}
+<div class="module-heading"><div><a class="back-link" href="{{ url_for('main.mission') }}">← Mission Control</a><span class="eyebrow">MODULE 05 · EXECUTED PYTHON CHECKS</span><h1>Security Testing Lab</h1><p>Execute focused checks against application controls and review the observed results.</p></div><span class="module-pill">REAL CHECKS</span></div>
+<div class="warning-banner"><span>!</span><p>Results are based on checks this app actually executes. They are useful evidence, not a complete security audit or guarantee of safety.</p></div>
+<section class="panel test-lab-panel"><div class="panel-title-row"><div><span class="eyebrow">REQUIRED CHECKS</span><h2>Run the security suite</h2><p>Checks include parameterized queries, password hashing, authorization, file validation, live rate limiting, and session handling.</p></div><button class="button button-primary" type="button" id="runSecurityTests">Run all checks <span>▶</span></button></div><div class="test-list" id="testResults"><div class="test-row test-empty"><span class="test-status">—</span><span><b>Checks have not been run</b><small>Run the suite to populate results from execution.</small></span><span class="result-tag not-run">NOT RUN</span></div></div><div class="feedback-box" id="testFeedback" aria-live="polite" hidden></div></section>
+{% endblock %}

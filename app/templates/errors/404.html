@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Page not found{% endblock %}
+{% block content %}
+<section class="empty-state"><span class="eyebrow">404 · Route not found</span><h1>This page isn't in the mission plan.</h1><p>Return to Mission Control and choose an available training module.</p><a class="button button-primary" href="{{ url_for('main.index') }}">Return to mission control</a></section>
+{% endblock %}
