@@ -106,7 +106,7 @@ Open <http://127.0.0.1:5000>. The app creates its SQLite database and seeds five
 
 ## Deploy to Vercel
 
-The repository declares `run:app` as the Flask entrypoint in `pyproject.toml` and routes all requests through it in `vercel.json`.
+The repository declares the Flask runtime dependencies and `run:app` entrypoint in `pyproject.toml`, and routes all requests through it in `vercel.json`.
 
 In the Vercel project settings, set at least:
 
