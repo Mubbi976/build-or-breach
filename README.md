@@ -116,6 +116,15 @@ In the Vercel project settings, set:
 
 On Vercel, uploads and the fallback SQLite database use writable `/tmp` storage so the function can start. That storage is temporary and is not suitable for keeping accounts or progress. Set `DATABASE_URL` to a persistent external database to retain application data across function instances and deployments.
 
+### Configure a persistent PostgreSQL database
+
+1. Create a PostgreSQL database with a managed provider such as Neon or Supabase. For serverless hosting, use the provider's pooled connection string when available.
+2. In Vercel, open the project and go to **Settings → Environment Variables**.
+3. Add `DATABASE_URL` with the provider's PostgreSQL connection string (usually starts with `postgresql://`). Select **Production** and any other environments you deploy, then save.
+4. Redeploy the latest commit. The app creates its tables and seeds the training challenges on startup.
+
+Keep the connection string private. Do not commit it or paste it into source files. The project includes the PostgreSQL driver; without `DATABASE_URL`, the app uses temporary SQLite on Vercel and data will not persist.
+
 For HTTPS deployment, set `SESSION_COOKIE_SECURE=1` and configure a strong persistent `SECRET_KEY`. The default `memory://` rate-limit store is for a single local process; use a shared storage backend when deploying multiple workers. Do not expose the built-in development server directly to the internet.
 
 ## Create an account and sign in
