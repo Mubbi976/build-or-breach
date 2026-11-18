@@ -6,12 +6,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+_VERCEL_RUNTIME = os.getenv("VERCEL") == "1"
+_DEFAULT_DATABASE_URI = (
+    "sqlite:////tmp/build-or-breach.db"
+    if _VERCEL_RUNTIME
+    else "sqlite:///careerconnect.db"
+)
+_DEFAULT_UPLOAD_FOLDER = (
+    "/tmp/build-or-breach/uploads"
+    if _VERCEL_RUNTIME
+    else "instance/uploads"
+)
+
 
 class Config:
     SECRET_KEY = os.getenv("SECRET_KEY") or token_hex(32)
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        "DATABASE_URL", "sqlite:///careerconnect.db"
-    )
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL") or _DEFAULT_DATABASE_URI
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     MAX_CONTENT_LENGTH = 2 * 1024 * 1024
     WTF_CSRF_TIME_LIMIT = 3600
@@ -27,5 +37,5 @@ class Config:
     OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
     GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-4-hydrogen")
-    UPLOAD_FOLDER = Path(os.getenv("UPLOAD_FOLDER", "instance/uploads"))
+    UPLOAD_FOLDER = Path(os.getenv("UPLOAD_FOLDER") or _DEFAULT_UPLOAD_FOLDER)
     MAX_CODE_LENGTH = 12000
